@@ -1,6 +1,6 @@
 {
   "name": "url-percent-encoder",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Percent-encodes URI components with correct reserved character sets for path, query, and fragment segments.",
   "type": "module",
   "main": "src/index.js",
