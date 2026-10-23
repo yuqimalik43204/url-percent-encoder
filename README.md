@@ -30,3 +30,10 @@ The trade-off: query and fragment encoding here is deliberately conservative. If
 - **Already-encoded input is not detected.** Feeding `%41` to any of these functions will produce `%2541` (the `%` gets encoded). These functions encode raw text; they do not re-encode or pass through existing percent-escapes. Don't double-process.
 - **Lone surrogates** (valid in ECMAScript strings, invalid in strict UTF-8) are encoded as a 3-byte CESU-8-style sequence rather than throwing. Most callers will never hit this; it's documented so the behaviour is predictable.
 - **Astral-plane characters** (emoji, musical symbols, etc.) are correctly encoded as 4-byte UTF-8 sequences.
+
+## Performance
+
+The window keeps a bounded buffer, so `push` is constant time and memory does not
+grow with the length of the stream. `peak` and `trough` are linear in the window
+size, which is the trade that keeps `push` cheap.
+
